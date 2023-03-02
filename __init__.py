@@ -20,14 +20,14 @@ Created by Samy Tichadou
 
 bl_info = {
     "name": "GN Preset",
-    "description": "",
+    "description": "Create Geometry Nodes presets",
     "author": "Samy Tichadou (tonton)",
-    "version": (0, 1, 0),
+    "version": (0, 1, 1),
     "blender": (3, 0, 0),
-    "location": "",
+    "location": "Modifier Panel",
     "wiki_url": "https://github.com/samytichadou/GN_Preset/blob/master/README.md",
     "tracker_url": "https://github.com/samytichadou/GN_Preset/issues/new",
-    "category": "Mesh" }
+    "category": "Node" }
 
 # IMPORT SPECIFICS
 ##################################
