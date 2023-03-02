@@ -42,7 +42,9 @@ class GNPRESET_OT_load_preset(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        if context.object.modifiers.active:
+            active=context.object.modifiers.active
+            return active.type=="NODES" and active.node_group
 
     def execute(self, context):
         mod=context.object.modifiers.active

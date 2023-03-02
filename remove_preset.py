@@ -10,7 +10,9 @@ class GNPRESET_OT_remove_preset(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return True
+        if context.object.modifiers.active:
+            active=context.object.modifiers.active
+            return active.type=="NODES" and active.node_group
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -23,7 +25,14 @@ class GNPRESET_OT_remove_preset(bpy.types.Operator):
         mod=context.object.modifiers.active
         presets=mod.node_group.gnpreset_presets
 
-        presets.remove(presets.find(self.preset_name))
+        index=presets.find(self.preset_name)
+        presets.remove(index)
+
+        # Correct active preset prop
+        if index!=0:
+            index-=1
+        if presets:
+            mod.node_group.gnpreset_active_preset=presets[index].name
 
         self.report({'INFO'}, f"Preset {self.preset_name} removed")
 
