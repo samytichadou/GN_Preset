@@ -41,6 +41,7 @@ def get_presets_items(self, context):
     items = []
     for p in self.gnpreset_presets:
         items.append((p.name, p.name, ""))
+    items=sorted(items)
     return items
 
 ### REGISTER ---
