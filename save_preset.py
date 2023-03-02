@@ -8,14 +8,24 @@ def return_nodegroup_inputs(modifier):
             input_list.append([input.name, input.identifier, input.type, modifier[input.identifier]])
     return input_list
 
+def remove_name_version(name):
+    split=name.split(".")
+    end=split[len(split)-1]
+    try:
+        int(end)
+        return name.split(f".{end}")[0]
+    except ValueError:
+        return name
+
 def find_unique_name(name, namecollection):
     try:
         namecollection[name]
     except KeyError:
         return name
+    name_clean=remove_name_version(name)
     for i in range(1,1000):
         idx=str(i).zfill(3)
-        new_name=f"{name}.{idx}"
+        new_name=f"{name_clean}.{idx}"
         try:
             namecollection[new_name]
         except KeyError:
@@ -37,6 +47,10 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
             return active.type=="NODES" and active.node_group
 
     def invoke(self, context, event):
+        self.preset_name=find_unique_name(
+            self.preset_name,
+            context.object.modifiers.active.node_group.gnpreset_presets
+        )
         return context.window_manager.invoke_props_dialog(self)
 
     def draw(self, context):
@@ -60,6 +74,8 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
             new_input.identifier=input[1]
             new_input.type=input[2]
             setattr(new_input, input[2].lower(), input[3])
+
+        mod.node_group.gnpreset_active_preset=new_preset.name
 
         self.report({'INFO'}, f"Preset {new_preset.name} saved")
 
