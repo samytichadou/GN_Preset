@@ -87,7 +87,7 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
 
         mod.node_group.gnpreset_active_preset=preset_name
 
-        self.report({'INFO'}, f"Preset {new_preset.name} saved")
+        self.report({'INFO'}, f"Preset {preset_name} saved")
 
         # Redraw ui
         for area in context.screen.areas:
