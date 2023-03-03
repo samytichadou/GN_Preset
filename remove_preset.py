@@ -1,5 +1,10 @@
 import bpy
 
+def remove_collection_entry(entry_name, collection):
+    index=collection.find(entry_name)
+    collection.remove(index)
+    return index
+
 class GNPRESET_OT_remove_preset(bpy.types.Operator):
     bl_idname = "gnpreset.remove_preset"
     bl_label = "Remove Preset"
@@ -25,8 +30,7 @@ class GNPRESET_OT_remove_preset(bpy.types.Operator):
         mod=context.object.modifiers.active
         presets=mod.node_group.gnpreset_presets
 
-        index=presets.find(self.preset_name)
-        presets.remove(index)
+        index=remove_collection_entry(self.preset_name, presets)
 
         # Correct active preset prop
         if index!=0:
