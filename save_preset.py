@@ -1,5 +1,7 @@
 import bpy
 
+from . import remove_preset as remove
+
 def return_nodegroup_inputs(modifier):
     input_list = []
     inputs=modifier.node_group.inputs
@@ -108,37 +110,30 @@ class GNPRESET_OT_replace_preset(bpy.types.Operator):
             return active.type=="NODES" and active.node_group
 
     def invoke(self, context, event):
-        self.preset_name=find_unique_name(
-            self.preset_name,
-            context.object.modifiers.active.node_group.gnpreset_presets
-        )
         return context.window_manager.invoke_props_dialog(self)
 
     def draw(self, context):
         layout = self.layout
-        layout.label(text=f"Replace {self.name} ?")
+        layout.label(text=f"Replace {self.preset_name} ?")
 
     def execute(self, context):
         mod=context.object.modifiers.active
+        presets=mod.node_group.gnpreset_presets
 
-        new_preset=mod.node_group.gnpreset_presets.add()
-        new_preset.name=find_unique_name(
+        remove.remove_collection_entry(
             self.preset_name,
-            mod.node_group.gnpreset_presets
+            presets
         )
 
-        inputs=return_nodegroup_inputs(mod)
-        for input in inputs:
-            # print(input)
-            new_input=new_preset.inputs.add()
-            new_input.name=input[0]
-            new_input.identifier=input[1]
-            new_input.type=input[2]
-            setattr(new_input, input[2].lower(), input[3])
+        save_preset(
+            self.preset_name,
+            presets,
+            mod
+        )
 
-        mod.node_group.gnpreset_active_preset=new_preset.name
+        mod.node_group.gnpreset_active_preset=self.preset_name
 
-        self.report({'INFO'}, f"Preset {new_preset.name} saved")
+        self.report({'INFO'}, f"Preset {self.preset_name} saved")
 
         # Redraw ui
         for area in context.screen.areas:

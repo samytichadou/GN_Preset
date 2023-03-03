@@ -12,17 +12,43 @@ def draw_modifier_menu(self, context):
             if active.node_group.gnpreset_presets:
                 preset_name=active.node_group.gnpreset_active_preset
                 row.separator()
-                row.prop(active.node_group, "gnpreset_active_preset", text="")
-                op=row.operator('gnpreset.load_preset', text="", icon="CHECKMARK")
+                op=row.operator(
+                    'gnpreset.replace_preset',
+                    text="",
+                    icon="DISK_DRIVE"
+                    )
                 op.preset_name=preset_name
-                op=row.operator('gnpreset.remove_preset', text="", icon="X")
+                row.prop(
+                    active.node_group,
+                    "gnpreset_active_preset",
+                    text=""
+                    )
+                op=row.operator(
+                    'gnpreset.load_preset',
+                    text="",
+                    icon="CHECKMARK"
+                    )
+                op.preset_name=preset_name
+                op=row.operator(
+                    'gnpreset.remove_preset',
+                    text="",
+                    icon="X"
+                    )
                 op.preset_name=preset_name
 
                 row.separator()
-                op=row.operator('gnpreset.load_preset_multiple', text="", icon="RESTRICT_SELECT_OFF")
+                op=row.operator(
+                    'gnpreset.load_preset_multiple',
+                    text="",
+                    icon="RESTRICT_SELECT_OFF"
+                    )
                 op.preset_name=preset_name
                 op.selection=True
-                op=row.operator('gnpreset.load_preset_multiple', text="", icon="CHECKBOX_HLT")
+                op=row.operator(
+                    'gnpreset.load_preset_multiple',
+                    text="",
+                    icon="CHECKBOX_HLT"
+                    )
                 op.preset_name=preset_name
                 op.selection=False
 
