@@ -22,7 +22,7 @@ bl_info = {
     "name": "GN Preset",
     "description": "Create Geometry Nodes presets",
     "author": "Samy Tichadou (tonton)",
-    "version": (0, 1, 1),
+    "version": (0, 1, 2),
     "blender": (3, 0, 0),
     "location": "Modifier Panel",
     "wiki_url": "https://github.com/samytichadou/GN_Preset/blob/master/README.md",
