@@ -35,7 +35,11 @@ def set_nodegroup_inputs(preset, modifier):
 
 def load_preset_object(obj, mod, preset):
     set_nodegroup_inputs(preset, mod)
-    obj.data.update()
+    if obj.type=='MESH':
+        obj.data.update()
+    # Hack for curve
+    else:
+        mod.show_viewport=mod.show_viewport
 
 
 class GNPRESET_OT_load_preset(bpy.types.Operator):
