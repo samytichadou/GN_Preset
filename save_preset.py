@@ -50,7 +50,7 @@ def save_preset(name, collection, modifier):
 class GNPRESET_OT_save_preset(bpy.types.Operator):
     bl_idname = "gnpreset.save_preset"
     bl_label = "Save Preset"
-    bl_description = ""
+    bl_description = "Add preset for this geometry nodegroup"
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     preset_name: bpy.props.StringProperty(name="Name", default="New Preset")
@@ -98,7 +98,7 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
 class GNPRESET_OT_replace_preset(bpy.types.Operator):
     bl_idname = "gnpreset.replace_preset"
     bl_label = "Replace Preset"
-    bl_description = ""
+    bl_description = "Replace active preset"
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     preset_name: bpy.props.StringProperty(name="Name", default="New Preset")

@@ -8,7 +8,7 @@ def remove_collection_entry(entry_name, collection):
 class GNPRESET_OT_remove_preset(bpy.types.Operator):
     bl_idname = "gnpreset.remove_preset"
     bl_label = "Remove Preset"
-    bl_description = ""
+    bl_description = "Remove active preset"
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     preset_name: bpy.props.StringProperty(name="Name", default="New Preset")

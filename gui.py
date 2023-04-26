@@ -23,26 +23,29 @@ class GNPRESET_MT_load_menu(bpy.types.Menu):
         op.selection=False
 
 def draw_modifier_menu(self, context):
+    layout = self.layout
+    row=layout.row(align=True)
+    row.label(text="GN Presets", icon="GEOMETRY_NODES")
+
     if context.object.modifiers.active:
         active=context.object.modifiers.active
         if active.type=="NODES" and active.node_group:
-            layout = self.layout
-            row=layout.row(align=True)
-            row.label(text="Presets", icon="GEOMETRY_NODES")
             row.operator('gnpreset.save_preset', text="", icon="ADD")
             if active.node_group.gnpreset_presets:
                 preset_name=active.node_group.gnpreset_active_preset
-                row.prop(
-                    active.node_group,
-                    "gnpreset_active_preset",
-                    text=""
-                    )
+
+                row.separator()
                 op=row.operator(
                     'gnpreset.replace_preset',
                     text="",
                     icon="DISK_DRIVE"
                     )
                 op.preset_name=preset_name
+                row.prop(
+                    active.node_group,
+                    "gnpreset_active_preset",
+                    text=""
+                    )
                 op=row.operator(
                     'gnpreset.remove_preset',
                     text="",
@@ -59,6 +62,12 @@ def draw_modifier_menu(self, context):
                 op.preset_name=preset_name
 
                 row.menu("GNPRESET_MT_load_menu", text="", icon="DOWNARROW_HLT")
+
+                return
+
+    row.enabled=False
+    row.label(text="No Geometry Nodes")
+
 
 ### REGISTER ---
 def register():
