@@ -63,10 +63,12 @@ def draw_modifier_menu(self, context):
 
                 row.menu("GNPRESET_MT_load_menu", text="", icon="DOWNARROW_HLT")
 
-                return
+            return
 
     row.enabled=False
-    row.label(text="No Geometry Nodes")
+    sub=row.row(align=True)
+    sub.alignment="RIGHT"
+    sub.label(text="No Node Tree")
 
 
 ### REGISTER ---
