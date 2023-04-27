@@ -19,9 +19,9 @@ def cut_long_text(text, line_length=50):
 
 class GNPRESET_OT_display_description(bpy.types.Operator):
     bl_idname = "gnpreset.display_description"
-    bl_label = "Description"
+    bl_label = "Informations"
     bl_description = "Display nodetree/preset description"
-    bl_options = {"INTERNAL","REGISTER","UNDO"}
+    # bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     description: bpy.props.StringProperty()
     url: bpy.props.StringProperty()

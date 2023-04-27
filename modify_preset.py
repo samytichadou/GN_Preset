@@ -2,14 +2,17 @@ import bpy
 
 class GNPRESET_OT_modify_preset(bpy.types.Operator):
     bl_idname = "gnpreset.modify_preset"
-    bl_label = "Modify Preset Informations"
+    bl_label = "Modify Informations"
     bl_description = "Modify active preset name and description"
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     preset_name: bpy.props.StringProperty()
 
     temp_name: bpy.props.StringProperty(name="Name")
-    temp_description: bpy.props.StringProperty(name="Description")
+    temp_description: bpy.props.StringProperty(
+        name="Description",
+        description = "Description, Double space allows a line break",
+        )
 
     active_preset=None
 

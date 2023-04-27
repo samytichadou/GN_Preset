@@ -54,10 +54,7 @@ def register():
     bpy.types.GeometryNodeTree.gnpreset_active_preset= \
         bpy.props.EnumProperty(name="Preset", items=get_presets_items)
     bpy.types.GeometryNodeTree.gnpreset_description= \
-        bpy.props.StringProperty(
-            name="Nodetree Description",
-            description = "Description, Double space allows a line break",
-            )
+        bpy.props.StringProperty(name="Nodetree Description")
     bpy.types.GeometryNodeTree.gnpreset_url= \
         bpy.props.StringProperty(name="Nodetree URL")
 def unregister():

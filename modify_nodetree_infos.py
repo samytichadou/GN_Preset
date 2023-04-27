@@ -6,8 +6,13 @@ class GNPRESET_OT_modify_nodetree_infos(bpy.types.Operator):
     bl_description = "Modify description and url of the nodetree"
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
-    temp_description: bpy.props.StringProperty(name="Description")
-    temp_url: bpy.props.StringProperty(name="URL")
+    temp_description: bpy.props.StringProperty(
+        name="Description",
+        description="Description, Double space allows a line break",
+        )
+    temp_url: bpy.props.StringProperty(
+        name="URL",
+        )
 
     node_tree=None
 
