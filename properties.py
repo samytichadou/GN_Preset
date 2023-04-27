@@ -33,9 +33,8 @@ class GNPRESET_PR_input(bpy.types.PropertyGroup):
 
 class GNPRESET_PR_preset(bpy.types.PropertyGroup):
     inputs: bpy.props.CollectionProperty(type = GNPRESET_PR_input, name="Inputs")
-
-class GNPRESET_PR_preset(bpy.types.PropertyGroup):
-    inputs: bpy.props.CollectionProperty(type = GNPRESET_PR_input, name="Inputs")
+    description: bpy.props.StringProperty(name = "Preset Description")
+    url: bpy.props.StringProperty(name = "Preset URL")
 
 def get_presets_items(self, context):
     items = []
