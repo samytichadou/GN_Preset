@@ -33,12 +33,20 @@ def draw_modifier_menu(self, context):
             row.operator('gnpreset.save_preset', text="", icon="ADD")
             if active.node_group.gnpreset_presets:
                 preset_name=active.node_group.gnpreset_active_preset
+                preset=active.node_group.gnpreset_presets[preset_name]
 
+                # Preset handling
                 row.separator()
                 op=row.operator(
                     'gnpreset.replace_preset',
                     text="",
                     icon="DISK_DRIVE"
+                    )
+                op.preset_name=preset_name
+                op=row.operator(
+                    'gnpreset.modify_preset',
+                    text="",
+                    icon="GREASEPENCIL"
                     )
                 op.preset_name=preset_name
                 row.prop(
@@ -53,6 +61,25 @@ def draw_modifier_menu(self, context):
                     )
                 op.preset_name=preset_name
 
+                # Description and URL
+                if preset.description or preset.url:
+                    row.separator()
+                    if preset.description:
+                        op=row.operator(
+                            'wm.url_open',
+                            text="",
+                            icon="HELP"
+                            )
+                        op.url=preset.url
+                    if preset.url:
+                        op=row.operator(
+                            'wm.url_open',
+                            text="",
+                            icon="URL"
+                            )
+                        op.url=preset.url
+
+                # Load
                 row.separator()
                 op=row.operator(
                     'gnpreset.load_preset',

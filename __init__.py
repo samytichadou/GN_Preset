@@ -22,7 +22,7 @@ bl_info = {
     "name": "GN Preset",
     "description": "Create Geometry Nodes presets",
     "author": "Samy Tichadou (tonton)",
-    "version": (1, 0, 0),
+    "version": (1, 1, 0),
     "blender": (3, 0, 0),
     "location": "Modifier Panel",
     "wiki_url": "https://github.com/samytichadou/GN_Preset/blob/master/README.md",
@@ -37,6 +37,7 @@ from . import (
     save_preset,
     load_preset,
     remove_preset,
+    modify_preset,
     gui,
 )
 
@@ -49,6 +50,7 @@ def register():
     save_preset.register()
     load_preset.register()
     remove_preset.register()
+    modify_preset.register()
     gui.register()
 
 def unregister():
@@ -56,4 +58,5 @@ def unregister():
     save_preset.unregister()
     load_preset.unregister()
     remove_preset.unregister()
+    modify_preset.unregister()
     gui.unregister()
