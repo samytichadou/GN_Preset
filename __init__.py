@@ -39,6 +39,7 @@ from . import (
     remove_preset,
     modify_preset,
     display_description,
+    modify_nodetree_infos,
     gui,
 )
 
@@ -53,6 +54,7 @@ def register():
     remove_preset.register()
     modify_preset.register()
     display_description.register()
+    modify_nodetree_infos.register()
     gui.register()
 
 def unregister():
@@ -62,4 +64,5 @@ def unregister():
     remove_preset.unregister()
     modify_preset.unregister()
     display_description.unregister()
+    modify_nodetree_infos.unregister()
     gui.unregister()

@@ -34,7 +34,6 @@ class GNPRESET_PR_input(bpy.types.PropertyGroup):
 class GNPRESET_PR_preset(bpy.types.PropertyGroup):
     inputs: bpy.props.CollectionProperty(type = GNPRESET_PR_input, name="Inputs")
     description: bpy.props.StringProperty(name = "Preset Description")
-    url: bpy.props.StringProperty(name = "Preset URL")
 
 def get_presets_items(self, context):
     items = []
@@ -51,8 +50,14 @@ def register():
         bpy.props.CollectionProperty(type = GNPRESET_PR_preset, name="Presets")
     bpy.types.GeometryNodeTree.gnpreset_active_preset= \
         bpy.props.EnumProperty(name="Preset", items=get_presets_items)
+    bpy.types.GeometryNodeTree.gnpreset_description= \
+        bpy.props.StringProperty(name="Nodetree Description")
+    bpy.types.GeometryNodeTree.gnpreset_url= \
+        bpy.props.StringProperty(name="Nodetree URL")
 def unregister():
     bpy.utils.unregister_class(GNPRESET_PR_input)
     bpy.utils.unregister_class(GNPRESET_PR_preset)
     del bpy.types.GeometryNodeTree.gnpreset_presets
     del bpy.types.GeometryNodeTree.gnpreset_active_preset
+    del bpy.types.GeometryNodeTree.gnpreset_description
+    del bpy.types.GeometryNodeTree.gnpreset_url

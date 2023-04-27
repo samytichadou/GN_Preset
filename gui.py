@@ -25,12 +25,43 @@ class GNPRESET_MT_load_menu(bpy.types.Menu):
 def draw_modifier_menu(self, context):
     layout = self.layout
     row=layout.row(align=True)
-    row.label(text="GN Presets", icon="GEOMETRY_NODES")
+    row.label(text="", icon="GEOMETRY_NODES")
 
     if context.object.modifiers.active:
         active=context.object.modifiers.active
         if active.type=="NODES" and active.node_group:
+            ng=active.node_group
+
+            # Description and URL
+            sub=row.row(align=True)
+            sub.separator()
+            if not ng.gnpreset_description:
+                sub.enabled=False
+            op=sub.operator(
+                'gnpreset.display_description',
+                text="",
+                icon="INFO"
+                )
+            op.description=ng.gnpreset_description
+            sub=row.row(align=True)
+            if not ng.gnpreset_url:
+                sub.enabled=False
+            op=sub.operator(
+                'wm.url_open',
+                text="",
+                icon="URL"
+                )
+            op.url=ng.gnpreset_url
+            op=row.operator(
+                'gnpreset.modify_nodetree_infos',
+                text="",
+                icon="GREASEPENCIL"
+                )
+
+            # New Preset
+            row.separator()
             row.operator('gnpreset.save_preset', text="", icon="ADD")
+
             if active.node_group.gnpreset_presets:
                 preset_name=active.node_group.gnpreset_active_preset
                 preset=active.node_group.gnpreset_presets[preset_name]
@@ -72,15 +103,6 @@ def draw_modifier_menu(self, context):
                     icon="HELP"
                     )
                 op.description=preset.description
-                sub=row.row(align=True)
-                if not preset.url:
-                    sub.enabled=False
-                op=sub.operator(
-                    'wm.url_open',
-                    text="",
-                    icon="URL"
-                    )
-                op.url=preset.url
 
                 # Load
                 row.separator()
