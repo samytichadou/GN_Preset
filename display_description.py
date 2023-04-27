@@ -24,6 +24,7 @@ class GNPRESET_OT_display_description(bpy.types.Operator):
     bl_options = {"INTERNAL","REGISTER","UNDO"}
 
     description: bpy.props.StringProperty()
+    url: bpy.props.StringProperty()
 
     @classmethod
     def poll(cls, context):
@@ -37,8 +38,16 @@ class GNPRESET_OT_display_description(bpy.types.Operator):
     def draw(self, context):
         layout = self.layout
         col=layout.column(align=True)
-        for line in cut_long_text(self.description):
-            col.label(text=line)
+        if self.description:
+            for line in cut_long_text(self.description):
+                col.label(text=line)
+        if self.url:
+            op=layout.operator(
+                'wm.url_open',
+                text=f"Open {self.url}",
+                icon="URL"
+                )
+            op.url=self.url
 
     def execute(self, context):
         return {'FINISHED'}

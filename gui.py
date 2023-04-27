@@ -35,7 +35,7 @@ def draw_modifier_menu(self, context):
             # Description and URL
             sub=row.row(align=True)
             sub.separator()
-            if not ng.gnpreset_description:
+            if not ng.gnpreset_description and not ng.gnpreset_url:
                 sub.enabled=False
             op=sub.operator(
                 'gnpreset.display_description',
@@ -43,14 +43,6 @@ def draw_modifier_menu(self, context):
                 icon="INFO"
                 )
             op.description=ng.gnpreset_description
-            sub=row.row(align=True)
-            if not ng.gnpreset_url:
-                sub.enabled=False
-            op=sub.operator(
-                'wm.url_open',
-                text="",
-                icon="URL"
-                )
             op.url=ng.gnpreset_url
             op=row.operator(
                 'gnpreset.modify_nodetree_infos',
