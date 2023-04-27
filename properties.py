@@ -33,7 +33,10 @@ class GNPRESET_PR_input(bpy.types.PropertyGroup):
 
 class GNPRESET_PR_preset(bpy.types.PropertyGroup):
     inputs: bpy.props.CollectionProperty(type = GNPRESET_PR_input, name="Inputs")
-    description: bpy.props.StringProperty(name = "Preset Description")
+    description: bpy.props.StringProperty(
+        name = "Preset Description",
+        description = "Description, Double space allows a line break",
+        )
 
 def get_presets_items(self, context):
     items = []
@@ -51,7 +54,10 @@ def register():
     bpy.types.GeometryNodeTree.gnpreset_active_preset= \
         bpy.props.EnumProperty(name="Preset", items=get_presets_items)
     bpy.types.GeometryNodeTree.gnpreset_description= \
-        bpy.props.StringProperty(name="Nodetree Description")
+        bpy.props.StringProperty(
+            name="Nodetree Description",
+            description = "Description, Double space allows a line break",
+            )
     bpy.types.GeometryNodeTree.gnpreset_url= \
         bpy.props.StringProperty(name="Nodetree URL")
 def unregister():

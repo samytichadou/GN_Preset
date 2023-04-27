@@ -1,18 +1,20 @@
 import bpy
 
 def cut_long_text(text, line_length=50):
-    words=text.split(" ")
+    rough_lines=text.split("  ")
     lines=[]
-    temp_line=""
-    for w in words:
-        test=f"{temp_line}{w} "
-        if len(test)>line_length:
+    for l in rough_lines:
+        words=l.split(" ")
+        temp_line=""
+        for w in words:
+            test=f"{temp_line}{w} "
+            if len(test)>line_length:
+                lines.append(temp_line)
+                temp_line=f"{w} "
+            else:
+                temp_line=test
+        if temp_line not in lines:
             lines.append(temp_line)
-            temp_line=f"{w} "
-        else:
-            temp_line=test
-    if temp_line not in lines:
-        lines.append(temp_line)
     return lines
 
 class GNPRESET_OT_display_description(bpy.types.Operator):
