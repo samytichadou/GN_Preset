@@ -120,7 +120,7 @@ def draw_modifier_menu(self, context):
 
             row.menu("GNPRESET_MT_load_menu", text="", icon="DOWNARROW_HLT")
 
-            return
+        return
 
     row.enabled=False
     sub=row.row(align=True)
