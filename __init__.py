@@ -38,6 +38,7 @@ from . import (
     load_preset,
     remove_preset,
     modify_preset,
+    display_description,
     gui,
 )
 
@@ -51,6 +52,7 @@ def register():
     load_preset.register()
     remove_preset.register()
     modify_preset.register()
+    display_description.register()
     gui.register()
 
 def unregister():
@@ -59,4 +61,5 @@ def unregister():
     load_preset.unregister()
     remove_preset.unregister()
     modify_preset.unregister()
+    display_description.unregister()
     gui.unregister()

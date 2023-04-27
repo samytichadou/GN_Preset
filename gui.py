@@ -67,11 +67,11 @@ def draw_modifier_menu(self, context):
                 if not preset.description:
                     sub.enabled=False
                 op=sub.operator(
-                    'wm.url_open',
+                    'gnpreset.display_description',
                     text="",
                     icon="HELP"
                     )
-                op.url=preset.url
+                op.description=preset.description
                 sub=row.row(align=True)
                 if not preset.url:
                     sub.enabled=False
