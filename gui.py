@@ -62,22 +62,25 @@ def draw_modifier_menu(self, context):
                 op.preset_name=preset_name
 
                 # Description and URL
-                if preset.description or preset.url:
-                    row.separator()
-                    if preset.description:
-                        op=row.operator(
-                            'wm.url_open',
-                            text="",
-                            icon="HELP"
-                            )
-                        op.url=preset.url
-                    if preset.url:
-                        op=row.operator(
-                            'wm.url_open',
-                            text="",
-                            icon="URL"
-                            )
-                        op.url=preset.url
+                sub=row.row(align=True)
+                sub.separator()
+                if not preset.description:
+                    sub.enabled=False
+                op=sub.operator(
+                    'wm.url_open',
+                    text="",
+                    icon="HELP"
+                    )
+                op.url=preset.url
+                sub=row.row(align=True)
+                if not preset.url:
+                    sub.enabled=False
+                op=sub.operator(
+                    'wm.url_open',
+                    text="",
+                    icon="URL"
+                    )
+                op.url=preset.url
 
                 # Load
                 row.separator()
