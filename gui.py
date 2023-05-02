@@ -107,6 +107,7 @@ def draw_modifier_menu(self, context):
                 icon="HELP"
                 )
             op.description=preset.description
+            op.url=""
             row.menu("GNPRESET_MT_manage_preset_menu", text="", icon="DOWNARROW_HLT")
 
             # Load
