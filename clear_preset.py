@@ -21,7 +21,7 @@ class GNPRESET_OT_remove_preset(bpy.types.Operator):
 
     def execute(self, context):
         mod=context.object.modifiers.active
-        presets=mod.node_group.gnpreset_presets
+        presets=mod.node_group.gnpreset.presets
 
         self.report({'INFO'}, f"Preset {self.preset_name} removed")
 

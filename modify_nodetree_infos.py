@@ -24,8 +24,8 @@ class GNPRESET_OT_modify_nodetree_infos(bpy.types.Operator):
 
     def invoke(self, context, event):
         self.node_tree=context.object.modifiers.active.node_group
-        self.temp_description=self.node_tree.gnpreset_description
-        self.temp_url=self.node_tree.gnpreset_url
+        self.temp_description=self.node_tree.gnpreset.description
+        self.temp_url=self.node_tree.gnpreset.url
         return context.window_manager.invoke_props_dialog(self)
 
     def draw(self, context):
@@ -35,8 +35,8 @@ class GNPRESET_OT_modify_nodetree_infos(bpy.types.Operator):
         layout.prop(self, "temp_url")
 
     def execute(self, context):
-        self.node_tree.gnpreset_description=self.temp_description
-        self.node_tree.gnpreset_url=self.temp_url
+        self.node_tree.gnpreset.description=self.temp_description
+        self.node_tree.gnpreset.url=self.temp_url
 
         # Redraw ui
         for area in context.screen.areas:

@@ -23,7 +23,7 @@ class GNPRESET_OT_modify_preset(bpy.types.Operator):
             return active.type=="NODES" and active.node_group
 
     def invoke(self, context, event):
-        self.active_preset=context.object.modifiers.active.node_group.gnpreset_presets[self.preset_name]
+        self.active_preset=context.object.modifiers.active.node_group.gnpreset.presets[self.preset_name]
 
         self.temp_name=self.active_preset.name
         self.temp_description=self.active_preset.description

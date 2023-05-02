@@ -40,27 +40,28 @@ class GNPRESET_PR_preset(bpy.types.PropertyGroup):
 
 def get_presets_items(self, context):
     items = []
-    for p in self.gnpreset_presets:
+    for p in self.presets:
         items.append((p.name, p.name, ""))
     items=sorted(items)
     return items
+
+class GNPRESET_PR_main(bpy.types.PropertyGroup):
+    presets: bpy.props.CollectionProperty(type = GNPRESET_PR_preset, name="Presets")
+    active_preset: bpy.props.EnumProperty(name="Active Presets", items=get_presets_items)
+    description: bpy.props.StringProperty(name="Description")
+    url: bpy.props.StringProperty(name="URL")
 
 ### REGISTER ---
 def register():
     bpy.utils.register_class(GNPRESET_PR_input)
     bpy.utils.register_class(GNPRESET_PR_preset)
-    bpy.types.GeometryNodeTree.gnpreset_presets= \
-        bpy.props.CollectionProperty(type = GNPRESET_PR_preset, name="Presets")
-    bpy.types.GeometryNodeTree.gnpreset_active_preset= \
-        bpy.props.EnumProperty(name="Preset", items=get_presets_items)
-    bpy.types.GeometryNodeTree.gnpreset_description= \
-        bpy.props.StringProperty(name="Nodetree Description")
-    bpy.types.GeometryNodeTree.gnpreset_url= \
-        bpy.props.StringProperty(name="Nodetree URL")
+    bpy.utils.register_class(GNPRESET_PR_main)
+
+    bpy.types.GeometryNodeTree.gnpreset= \
+        bpy.props.PointerProperty(type = GNPRESET_PR_main, name="GN Presets")
 def unregister():
     bpy.utils.unregister_class(GNPRESET_PR_input)
     bpy.utils.unregister_class(GNPRESET_PR_preset)
-    del bpy.types.GeometryNodeTree.gnpreset_presets
-    del bpy.types.GeometryNodeTree.gnpreset_active_preset
-    del bpy.types.GeometryNodeTree.gnpreset_description
-    del bpy.types.GeometryNodeTree.gnpreset_url
+    bpy.utils.unregister_class(GNPRESET_PR_main)
+
+    del bpy.types.GeometryNodeTree.gnpreset

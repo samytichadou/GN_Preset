@@ -75,7 +75,7 @@ class GNPRESET_OT_load_preset(bpy.types.Operator):
     def execute(self, context):
         obj=context.object
         mod=obj.modifiers.active
-        preset=mod.node_group.gnpreset_presets[self.preset_name]
+        preset=mod.node_group.gnpreset.presets[self.preset_name]
 
         load_preset_object(obj, mod, preset)
 
@@ -105,7 +105,7 @@ class GNPRESET_OT_load_preset_multiple(bpy.types.Operator):
     def execute(self, context):
         active_obj=context.object
         target_ng=active_obj.modifiers.active.node_group
-        preset=target_ng.gnpreset_presets[self.preset_name]
+        preset=target_ng.gnpreset.presets[self.preset_name]
 
         # Get objects
         if self.selection:

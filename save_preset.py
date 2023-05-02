@@ -35,7 +35,7 @@ def find_unique_name(name, namecollection):
     return name
 
 def save_preset(name, collection, modifier):
-    new_preset=modifier.node_group.gnpreset_presets.add()
+    new_preset=modifier.node_group.gnpreset.presets.add()
     new_preset.name=name
 
     inputs=return_nodegroup_inputs(modifier)
@@ -64,7 +64,7 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
     def invoke(self, context, event):
         self.preset_name=find_unique_name(
             self.preset_name,
-            context.object.modifiers.active.node_group.gnpreset_presets
+            context.object.modifiers.active.node_group.gnpreset.presets
         )
         return context.window_manager.invoke_props_dialog(self)
 
@@ -76,16 +76,16 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
         mod=context.object.modifiers.active
         preset_name=find_unique_name(
             self.preset_name,
-            mod.node_group.gnpreset_presets
+            mod.node_group.gnpreset.presets
         )
 
         save_preset(
             preset_name,
-            mod.node_group.gnpreset_presets,
+            mod.node_group.gnpreset.presets,
             mod
         )
 
-        mod.node_group.gnpreset_active_preset=preset_name
+        mod.node_group.gnpreset.active_preset=preset_name
 
         self.report({'INFO'}, f"Preset {preset_name} saved")
 
@@ -118,7 +118,7 @@ class GNPRESET_OT_replace_preset(bpy.types.Operator):
 
     def execute(self, context):
         mod=context.object.modifiers.active
-        presets=mod.node_group.gnpreset_presets
+        presets=mod.node_group.gnpreset.presets
 
         remove.remove_collection_entry(
             self.preset_name,
@@ -131,7 +131,7 @@ class GNPRESET_OT_replace_preset(bpy.types.Operator):
             mod
         )
 
-        mod.node_group.gnpreset_active_preset=self.preset_name
+        mod.node_group.gnpreset.active_preset=self.preset_name
 
         self.report({'INFO'}, f"Preset {self.preset_name} saved")
 

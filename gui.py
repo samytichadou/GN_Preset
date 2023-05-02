@@ -5,7 +5,7 @@ class GNPRESET_MT_load_menu(bpy.types.Menu):
 
     def draw(self, context):
         active=context.object.modifiers.active
-        preset_name=active.node_group.gnpreset_active_preset
+        preset_name=active.node_group.gnpreset.active_preset
 
         layout = self.layout
 
@@ -27,8 +27,8 @@ class GNPRESET_MT_manage_preset_menu(bpy.types.Menu):
 
     def draw(self, context):
         active=context.object.modifiers.active
-        preset_name=active.node_group.gnpreset_active_preset
-        preset=active.node_group.gnpreset_presets[preset_name]
+        preset_name=active.node_group.gnpreset.active_preset
+        preset=active.node_group.gnpreset.presets[preset_name]
 
         layout = self.layout
         op=layout.operator(
@@ -69,32 +69,32 @@ def draw_modifier_menu(self, context):
             )
 
         active=context.object.modifiers.active
-        ng=active.node_group
+        props=active.node_group.gnpreset
 
         # Description and URL
         row.separator()
         sub=row.row(align=True)
-        if not ng.gnpreset_description and not ng.gnpreset_url:
+        if not props.description and not props.url:
             sub.enabled=False
         op=sub.operator(
             'gnpreset.display_description',
             text="",
             icon="INFO",
             )
-        op.description=ng.gnpreset_description
-        op.url=ng.gnpreset_url
+        op.description=props.description
+        op.url=props.url
 
         # New Preset
         row.separator()
         row.operator('gnpreset.save_preset', text="", icon="ADD")
 
-        if ng.gnpreset_presets:
-            preset_name=ng.gnpreset_active_preset
-            preset=ng.gnpreset_presets[preset_name]
+        if props.presets:
+            preset_name=props.active_preset
+            preset=props.presets[preset_name]
 
             row.prop(
-                ng,
-                "gnpreset_active_preset",
+                props,
+                "active_preset",
                 text=""
                 )
             # Description and URL
