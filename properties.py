@@ -32,7 +32,10 @@ class GNPRESET_PR_input(bpy.types.PropertyGroup):
     image: bpy.props.PointerProperty(type=bpy.types.Image)
 
 class GNPRESET_PR_preset(bpy.types.PropertyGroup):
-    inputs: bpy.props.CollectionProperty(type = GNPRESET_PR_input, name="Inputs")
+    inputs: bpy.props.CollectionProperty(
+        type = GNPRESET_PR_input,
+        name="Inputs",
+        )
     description: bpy.props.StringProperty(
         name = "Preset Description",
         description = "Description, Double space allows a line break",
@@ -46,8 +49,14 @@ def get_presets_items(self, context):
     return items
 
 class GNPRESET_PR_main(bpy.types.PropertyGroup):
-    presets: bpy.props.CollectionProperty(type = GNPRESET_PR_preset, name="Presets")
-    active_preset: bpy.props.EnumProperty(name="Active Presets", items=get_presets_items)
+    presets: bpy.props.CollectionProperty(
+        type = GNPRESET_PR_preset, name="Presets",
+        )
+    active_preset: bpy.props.EnumProperty(
+        name="Active Presets",
+        items=get_presets_items,
+        override = {"LIBRARY_OVERRIDABLE"},
+        )
     description: bpy.props.StringProperty(name="Description")
     url: bpy.props.StringProperty(name="URL")
 
@@ -58,7 +67,10 @@ def register():
     bpy.utils.register_class(GNPRESET_PR_main)
 
     bpy.types.GeometryNodeTree.gnpreset= \
-        bpy.props.PointerProperty(type = GNPRESET_PR_main, name="GN Presets")
+        bpy.props.PointerProperty(
+            type = GNPRESET_PR_main, name="GN Presets",
+            override = {"LIBRARY_OVERRIDABLE"},
+            )
 def unregister():
     bpy.utils.unregister_class(GNPRESET_PR_input)
     bpy.utils.unregister_class(GNPRESET_PR_preset)
