@@ -20,7 +20,9 @@ class GNPRESET_OT_modify_nodetree_infos(bpy.types.Operator):
     def poll(cls, context):
         if context.object.modifiers.active:
             active=context.object.modifiers.active
-            return active.type=="NODES" and active.node_group
+            if active.type=="NODES" and active.node_group:
+                return not active.node_group.library\
+                and not active.node_group.override_library
 
     def invoke(self, context, event):
         self.node_tree=context.object.modifiers.active.node_group

@@ -59,7 +59,9 @@ class GNPRESET_OT_save_preset(bpy.types.Operator):
     def poll(cls, context):
         if context.object.modifiers.active:
             active=context.object.modifiers.active
-            return active.type=="NODES" and active.node_group
+            if active.type=="NODES" and active.node_group:
+                return not active.node_group.library\
+                and not active.node_group.override_library
 
     def invoke(self, context, event):
         self.preset_name=find_unique_name(
@@ -107,7 +109,9 @@ class GNPRESET_OT_replace_preset(bpy.types.Operator):
     def poll(cls, context):
         if context.object.modifiers.active:
             active=context.object.modifiers.active
-            return active.type=="NODES" and active.node_group
+            if active.type=="NODES" and active.node_group:
+                return not active.node_group.library\
+                and not active.node_group.override_library
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

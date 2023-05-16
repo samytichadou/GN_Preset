@@ -20,7 +20,9 @@ class GNPRESET_OT_modify_preset(bpy.types.Operator):
     def poll(cls, context):
         if context.object.modifiers.active:
             active=context.object.modifiers.active
-            return active.type=="NODES" and active.node_group
+            if active.type=="NODES" and active.node_group:
+                return not active.node_group.library\
+                and not active.node_group.override_library
 
     def invoke(self, context, event):
         self.active_preset=context.object.modifiers.active.node_group.gnpreset.presets[self.preset_name]
